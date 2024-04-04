@@ -1,4 +1,5 @@
 import { getPosts } from "./api.js";
+import { postPosts , fetchPostsUser, toggleLike, dislikeLike} from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -34,6 +35,20 @@ export const logout = () => {
 /**
  * Включает страницу приложения
  */
+function getAPI() {
+  return getPosts({ token: getToken() })
+    .then((newPosts) => {
+      page = POSTS_PAGE;
+      posts = newPosts;
+      renderApp();
+    })
+    .catch((error) => {
+      console.error(error);
+      goToPage(POSTS_PAGE);
+    });
+  }
+
+  
 export const goToPage = (newPage, data) => {
   if (
     [
