@@ -96,47 +96,6 @@ export const goToPage = (newPage, data) => {
   throw new Error("Страницы не существует");
 };
 
-
-      /*return getPosts({ token: getToken() })
-        .then((newPosts) => {
-          page = POSTS_PAGE;
-          posts = newPosts;
-          renderApp();
-        })
-        .catch((error) => {
-          console.error(error);
-          goToPage(POSTS_PAGE);
-        });
-    }
-
-    if (newPage === USER_POSTS_PAGE) {
-      // TODO: реализовать получение постов юзера из API
-      console.log("Открываю страницу пользователя: ", data.userId);
-      page =  LOADING_PAGE;
-      //posts = [];
-      renderApp();   
-      
-        return fetchPostsUser ( data.userId, { token: getToken() } )
-        .then((newPosts) => {
-          page = USER_POSTS_PAGE;
-          posts = newPosts;
-          renderApp();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      
-    }
-
-    page = newPage;
-    renderApp();
-
-    return;
-  }
-  throw new Error("страницы не существует");*/
-
-
-    
 const renderApp = () => {
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
