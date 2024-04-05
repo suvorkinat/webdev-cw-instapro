@@ -11,7 +11,12 @@ export function renderPostsPageComponent({ appEl }) {
    * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
-  let postHTML = post.map((post) => {
+  let postsHTML = "";
+
+  if (posts.length === 0) {
+    postsHTML = "<p>Пока нет ни одного поста</p>";
+  } else {
+  postHTML = post.map((post) => {
   return `<li class="post">
                     <div class="post-header" data-user-id=${post.user.id}>
                         <img src=${post.user.imageUrl} class="post-header__user-image">
@@ -42,6 +47,7 @@ export function renderPostsPageComponent({ appEl }) {
                     </p>
                   </li>`;
                         }).join("");
+                      }
 
                         const appHtml = `
                         <div class="page-container">
