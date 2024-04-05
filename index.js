@@ -1,5 +1,5 @@
 import { getPosts } from "./api.js";
-import { postPosts , fetchPostsUser, toggleLike, dislikeLike} from "./api.js";
+import { postPosts , fetchPostsUser, deletefetchPost, toggleLike, dislikeLike} from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -163,6 +163,17 @@ const renderApp = () => {
 };
 
 goToPage(POSTS_PAGE);
+
+export function deletePost( id ) {
+  if (user) {
+    deletefetchPost({ token: getToken() },  id)
+    .then((newPosts) => {
+    posts = newPosts;
+    //return renderApp();
+      getAPI();
+    })
+  };
+};
 
 export function putLikes( id ) {
     toggleLike( id, { token: getToken() })

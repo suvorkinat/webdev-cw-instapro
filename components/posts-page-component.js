@@ -35,6 +35,9 @@ export function renderPostsPageComponent({ appEl }) {
                         </strong>
                     </p>
                 </div>
+                <button data-id=${post.id} class="delete-button"> 
+                <p class="delete">Удалить пост</p>
+                </button>
                     <p class="post-text">
                       <span class="user-name">${post.user.name}</span>
                       ${post.description}
@@ -56,6 +59,17 @@ export function renderPostsPageComponent({ appEl }) {
 
   appEl.innerHTML = appHtml;
 
+  // Delete 
+  const deleteButton = document.querySelectorAll('.delete-button')
+
+  for (const deleteButton of deleteButtons) {
+    deleteButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const id = deleteButton.dataset.id;
+      deletePost(id);
+    });
+  }
+  
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
   });

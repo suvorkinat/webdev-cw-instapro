@@ -150,3 +150,15 @@ export const dislikeLike = (id, {token}) => {
     throw new Error("Чтобы поставить лайк - авторизуйтесь!");
   })
 }
+//Delete post 
+export function deletefetchPost (id, {token}) {
+return fetch(`${postsHost}/${id}`, {
+  method: "Delete",
+  headers: {
+    Authorization: token,
+  },
+})
+.then((response) => {
+  return response.json();
+})
+}
