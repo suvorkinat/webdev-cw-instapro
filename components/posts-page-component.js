@@ -60,16 +60,17 @@ export function renderPostsPageComponent({ appEl }) {
   appEl.innerHTML = appHtml;
 
   // Delete 
-  const deleteButton = document.querySelectorAll('.delete-button')
+  const deleteButtons = document.querySelectorAll('.delete-button');
 
-  for (const deleteButton of deleteButtons) {
+for (const deleteButton of deleteButtons) {
     deleteButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const id = deleteButton.dataset.id;
-      deletePost(id);
+        event.stopPropagation();
+        const id = deleteButton.dataset.id;
+        deletePost(id);
     });
-  }
+}
   
+
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
   });
