@@ -3,7 +3,6 @@ import {  renderUploadImageComponent } from "./upload-image-component.js";
 
 let imageUrl = "";
 
-
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   const render = () => {
     // TODO: Реализовать страницу добавления поста

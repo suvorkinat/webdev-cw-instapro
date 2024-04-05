@@ -1,6 +1,6 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
-const personalKey = "cgcocccsb8b0b0cc6g5g5k5o5s5w606gcccobob8c8cw";
+const personalKey = "TanyaSuvorkina";
 const baseHost = "https://webdev-hw-api.vercel.app";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
@@ -114,6 +114,8 @@ export function fetchPostsUser( id , { token }) {
 }
 
 
+
+
 //лайки
 export const toggleLike = (id, {token}) => {
   return fetch(`${postsHost}/${id}/like`, {
@@ -125,8 +127,12 @@ export const toggleLike = (id, {token}) => {
   .then((response) => {
     if (response.status === 200) {
       return response.json();
+    } else if (response.status === 401) {
+      alert("Чтобы поставить лайк - авторизуйтесь!");
+    } else {
+      alert("Произошла ошибка при отправке запроса");
     }
-    throw new Error("Лайкать посты могут только авторизованные пользователи");
+    //throw new Error("Чтобы поставить лайк - авторизуйтесь!");
   })
 }
 
@@ -141,6 +147,6 @@ export const dislikeLike = (id, {token}) => {
     if (response.status === 200) {
       return response.json();
     }
-    throw new Error("Лайкать посты могут только авторизованные пользователи");
+    throw new Error("Чтобы поставить лайк - авторизуйтесь!");
   })
 }

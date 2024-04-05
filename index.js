@@ -137,7 +137,7 @@ const renderApp = () => {
         alert("Сервер сломался, попробуйте позже");
         postPosts({ token: getToken(), description, imageUrl });
       }  else {
-          alert('Кажется, у вас сломался интернет, попробуйте позже');
+          alert('Кажется, у вас не работает интернет, попробуйте позже');
           console.log(error);
         }
     });
@@ -163,3 +163,26 @@ const renderApp = () => {
 };
 
 goToPage(POSTS_PAGE);
+
+export function putLikes( id ) {
+    toggleLike( id, { token: getToken() })
+    .then(() => {
+      getAPI()
+    })
+    .catch((error) => {
+      alert(error.message);
+      goToPage(AUTH_PAGE);
+    });
+
+};
+
+export function removeLikes( id ) {
+    dislikeLike(id, { token: getToken() })
+    .then(() => {
+      getAPI()
+    })
+    .catch((error) => {
+      alert(error.message);
+      goToPage(AUTH_PAGE);
+    });
+};

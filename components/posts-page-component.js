@@ -1,7 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
-
+import { putLikes, removeLikes } from "../index.js";
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -11,12 +11,7 @@ export function renderPostsPageComponent({ appEl }) {
    * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
-  let postsHTML = "";
-
-  if (posts.length === 0) {
-    postsHTML = "<p>Пока нет ни одного поста</p>";
-  } else {
-  postHTML = post.map((post) => {
+  let postsHTML = posts.map((post) => {
   return `<li class="post">
                     <div class="post-header" data-user-id=${post.user.id}>
                         <img src=${post.user.imageUrl} class="post-header__user-image">
@@ -26,28 +21,27 @@ export function renderPostsPageComponent({ appEl }) {
                       <img class="post-image" src=${post.imageUrl}>
                     </div>
                     <div class="post-likes">
-                      <button data-post-id=${post.id} data-liked="${post.isLiked} class="like-button">
-                        
-                      ${post.isLiked ? `<img src="./assets/images/like-active.svg">` : `<img src="./assets/images/like-not-active.svg"></img>`}
-                      </button>
-
-                      <p class="post-likes-text">
+                    <button data-id=${post.id} data-liked="${post.isLiked}" class="like-button">   
+                        ${post.isLiked ? `<img src="./assets/images/like-active.svg"></img>` : `<img src="./assets/images/like-not-active.svg"></img>`}
+                    </button>
+                
+                    <p class="post-likes-text">
                         Нравится: <strong>
-                        ${post.likes.length === 0 ? 0 : post.likes.length === 1 ? post.likes[0].name
-                          : post.likes[(post.likes.length - 1)].name + ' и еще ' + (post.likes.length - 1)}
+                            ${post.likes.length === 0 ? 0 : post.likes.length === 1 ? post.likes[0].name
+                            : post.likes[(post.likes.length - 1)].name + ' и еще ' + (post.likes.length - 1)}
                         </strong>
-                      </p>
-                    </div>
+                    </p>
+                </div>
                     <p class="post-text">
                       <span class="user-name">${post.user.name}</span>
                       ${post.description}
                     </p>
                     <p class="post-date">
-                      ${new Date().toLocaleString()} //назад?
+                      ${new Date().toLocaleString()} //назад
                     </p>
                   </li>`;
                         }).join("");
-                      }
+                      
 
                         const appHtml = `
                         <div class="page-container">
@@ -72,7 +66,10 @@ export function renderPostsPageComponent({ appEl }) {
   }
 
 
-//лайки
+
+
+//likes counter
+
 function getLikePost() {
 
   const likesButton = document.querySelectorAll('.like-button');
@@ -92,6 +89,5 @@ function getLikePost() {
   }
 };
 getLikePost();
-
-
 }
+
