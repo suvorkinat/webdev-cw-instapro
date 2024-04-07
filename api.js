@@ -118,7 +118,7 @@ export function fetchPostsUser( id , { token }) {
 
 //лайки
 
-
+/*
 export const toggleLike = (id, {token}) => {
   return fetch(`${postsHost}/${id}/like`, {
     method: "POST",
@@ -147,7 +147,7 @@ export const dislikeLike = (id, {token}) => {
     }
     throw new Error("Чтобы поставить лайк - авторизуйтесь!");
   })
-}
+} */
 //Delete post 
 export function deletefetchPost (id, {token}) {
 return fetch(`${postsHost}/${id}`, {

@@ -101,7 +101,6 @@ function getLikePost() {
     })
   }
 };
-getLikePost(); 
-
+getLikePost(); */
 }
 
