@@ -21,7 +21,7 @@ export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
 
-const getToken = () => {
+export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : undefined;
   return token;
 };
@@ -173,27 +173,4 @@ export function deletePost( id ) {
       getAPI();
     })
   };
-};
-
-export function putLikes( id ) {
-    toggleLike( id, { token: getToken() })
-    .then(() => {
-      getAPI()
-    })
-    .catch((error) => {
-      alert(error.message);
-      goToPage(AUTH_PAGE);
-    });
-
-};
-
-export function removeLikes( id ) {
-    dislikeLike(id, { token: getToken() })
-    .then(() => {
-     getAPI()
-    })
-    .catch((error) => {
-      alert(error.message);
-      goToPage(AUTH_PAGE);
-    });
 };

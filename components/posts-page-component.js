@@ -1,9 +1,10 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
-import { putLikes, removeLikes } from "../index.js";
+import { getToken } from "../index.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale"
+import { toggleLike, dislikeLike } from "../api.js";
 
 
 export function renderPostsPageComponent({ appEl }) {
@@ -92,15 +93,27 @@ function getLikePost() {
       const id = like.dataset.id;
       const liked = like.dataset.liked;
 
-      if (liked == 'false') {
-        putLikes(id);
+      if (liked === 'false') {
+        toggleLike(id, {token: getToken()})
+          .then(() => {
+            like.querySelector("img").src = './assets/images/like-active.svg';
+            like.dataset.liked = "true";  // Обновить значение атрибута data-liked
+          })
+          .catch((error) => {
+            console.error("Ошибка при добавлении лайка:", error);
+          });
       } else {
-        removeLikes(id);
+        dislikeLike(id, {token: getToken()})
+          .then(() => {
+            like.querySelector("img").src = './assets/images/like-not-active.svg';
+            like.dataset.liked = "false";  // Обновить значение атрибута data-liked
+          })
+          .catch((error) => {
+            console.error("Ошибка при удалении лайка:", error);
+          });
       }
-
-    })
+    });
   }
-};
-getLikePost(); */
 }
-
+getLikePost();
+}
