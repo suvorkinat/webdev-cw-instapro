@@ -1,5 +1,6 @@
 import {  renderHeaderComponent } from "./header-component.js";
 import {  renderUploadImageComponent } from "./upload-image-component.js";
+import { sanitizeHtml } from "../sanitize.js";
 
 let imageUrl = "";
 
@@ -45,14 +46,11 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
     if (!(document.querySelector(".add-form__text").value)) {
       alert ('Не заполнено описание фото');
       return;       
-  };
-      
+  }; 
+  const description = document.querySelector(".add-form__text").value
+     
       onAddPostClick({
-        description:  document.querySelector(".add-form__text").value
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;"),
+        description: sanitizeHtml(description),
         imageUrl: imageUrl,
       });
     });
