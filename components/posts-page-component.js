@@ -8,7 +8,7 @@ import { ru } from "date-fns/locale"
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
-  console.log("Актуальный список постов:", posts);
+ // console.log("Актуальный список постов:", posts);
 
   /**
    * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
@@ -83,13 +83,8 @@ for (const deleteButton of deleteButtons) {
     });
   }
 
-
-
-
 //likes counter
-
 function getLikePost() {
-
   const likesButton = document.querySelectorAll('.like-button');
   for (const like of likesButton) {
     like.addEventListener("click", (event) => {
@@ -106,6 +101,7 @@ function getLikePost() {
     })
   }
 };
-getLikePost();
+getLikePost(); 
+
 }
 

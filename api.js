@@ -117,6 +117,8 @@ export function fetchPostsUser( id , { token }) {
 
 
 //лайки
+
+
 export const toggleLike = (id, {token}) => {
   return fetch(`${postsHost}/${id}/like`, {
     method: "POST",
@@ -127,12 +129,8 @@ export const toggleLike = (id, {token}) => {
   .then((response) => {
     if (response.status === 200) {
       return response.json();
-    } else if (response.status === 401) {
-      alert("Чтобы поставить лайк - авторизуйтесь!");
-    } else {
-      alert("Произошла ошибка при отправке запроса");
-    }
-    //throw new Error("Чтобы поставить лайк - авторизуйтесь!");
+    } 
+    throw new Error("Чтобы поставить лайк - авторизуйтесь!");
   })
 }
 

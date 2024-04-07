@@ -105,7 +105,6 @@ const renderApp = () => {
       goToPage,
     });
   }
-
   if (page === AUTH_PAGE) {
     return renderAuthPageComponent({
       appEl,
@@ -118,6 +117,7 @@ const renderApp = () => {
       goToPage,
     });
   }
+
 
   if (page === ADD_POSTS_PAGE) {
     return renderAddPostPageComponent({
@@ -190,7 +190,7 @@ export function putLikes( id ) {
 export function removeLikes( id ) {
     dislikeLike(id, { token: getToken() })
     .then(() => {
-      getAPI()
+     getAPI()
     })
     .catch((error) => {
       alert(error.message);
