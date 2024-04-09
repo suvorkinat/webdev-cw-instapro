@@ -1,5 +1,5 @@
 import { getPosts } from "./api.js";
-import { postPosts , fetchPostsUser, deletefetchPost, toggleLike, dislikeLike} from "./api.js";
+import { postPosts , fetchPostsUser, deletefetchPost} from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -16,10 +16,11 @@ import {
   removeUserFromLocalStorage,
   saveUserToLocalStorage,
 } from "./helpers.js";
-
 export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
+
+
 
 export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : undefined;
@@ -49,7 +50,7 @@ function getAPI() {
     })
     .catch((error) => {
       console.error(error);
-      goToPage(POSTS_PAGE);
+      //goToPage(POSTS_PAGE);
     });
   }
 
@@ -96,7 +97,7 @@ export const goToPage = (newPage, data) => {
   throw new Error("Страницы не существует");
 };
 
-const renderApp = () => {
+export const renderApp = () => {
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
     return renderLoadingPageComponent({
@@ -170,7 +171,8 @@ export function deletePost( id ) {
     .then((newPosts) => {
     posts = newPosts;
     //return renderApp();
-      getAPI();
+      
     })
   };
 };
+

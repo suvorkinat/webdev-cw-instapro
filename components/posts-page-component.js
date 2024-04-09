@@ -1,11 +1,10 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, renderApp } from "../index.js";
 import { getToken } from "../index.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale"
-import { toggleLike, dislikeLike } from "../api.js";
-
+import { toggleLike,dislikeLike } from "../api.js";
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -86,34 +85,42 @@ for (const deleteButton of deleteButtons) {
 
 //likes counter
 function getLikePost() {
-  const likesButton = document.querySelectorAll('.like-button');
-  for (const like of likesButton) {
-    like.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const id = like.dataset.id;
-      const liked = like.dataset.liked;
+  const likesButtons = document.querySelectorAll('.like-button');
 
-      if (liked === 'false') {
-        toggleLike(id, {token: getToken()})
-          .then(() => {
-            like.querySelector("img").src = './assets/images/like-active.svg';
-            like.dataset.liked = "true";  // Обновить значение атрибута data-liked
+  likesButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      const id = button.dataset.id; // Получаем id поста 
+      const isLiked = button.dataset.liked; // Узнаем поставил ли пользователь лайк
+      const index = posts.findIndex((post) => post.id === id); // Находим индекс поста в массиве posts
+
+      if (index === -1) {
+        console.error("Ошибка: пост не найден");
+        return;
+      }
+
+      if (isLiked === 'false') {
+        toggleLike(id, { token: getToken() })
+          .then((updatedPost) => {
+            posts[index].likes = updatedPost.post.likes;
+            renderApp();
           })
           .catch((error) => {
             console.error("Ошибка при добавлении лайка:", error);
           });
       } else {
-        dislikeLike(id, {token: getToken()})
-          .then(() => {
-            like.querySelector("img").src = './assets/images/like-not-active.svg';
-            like.dataset.liked = "false";  // Обновить значение атрибута data-liked
+        dislikeLike(id, { token: getToken() })
+          .then((updatedPost) => {
+            posts[index].likes = updatedPost.post.likes;
+            renderApp();
           })
           .catch((error) => {
             console.error("Ошибка при удалении лайка:", error);
           });
       }
     });
-  }
+  });
 }
-getLikePost();
+  getLikePost();
 }
