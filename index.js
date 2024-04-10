@@ -71,8 +71,8 @@ export const goToPage = (newPage, data) => {
       return renderApp();
     } else if (newPage === POSTS_PAGE) {
       page = LOADING_PAGE;
-      renderApp();
-      return getAPI();
+      //renderApp();
+      getAPI();
     } else if (newPage === USER_POSTS_PAGE) {
       console.log("Открываю страницу пользователя: ", data.userId);
       page =  LOADING_PAGE;

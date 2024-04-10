@@ -104,8 +104,8 @@ function getLikePost() {
       if (isLiked === 'false') {
         toggleLike(id, { token: getToken() })
           .then((updatedPost) => {
-            posts[index].likes = updatedPost.post.likes;
-            goToPage(POSTS_PAGE, { posts: posts });
+            //posts[index].likes = updatedPost.post.likes;
+            goToPage(POSTS_PAGE);
           })
           .catch((error) => {
             console.error("Ошибка при добавлении лайка:", error);
@@ -113,8 +113,8 @@ function getLikePost() {
       } else {
         dislikeLike(id, { token: getToken() })
           .then((updatedPost) => {
-            posts[index].likes = updatedPost.post.likes;
-            goToPage(POSTS_PAGE, { posts: posts });
+            //posts[index].likes = updatedPost.post.likes;
+            goToPage(POSTS_PAGE);
           })
           .catch((error) => {
             console.error("Ошибка при удалении лайка:", error);
