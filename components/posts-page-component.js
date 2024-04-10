@@ -1,4 +1,4 @@
-import { USER_POSTS_PAGE } from "../routes.js";
+import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
 import { getToken } from "../index.js";
@@ -105,7 +105,7 @@ function getLikePost() {
         toggleLike(id, { token: getToken() })
           .then((updatedPost) => {
             posts[index].likes = updatedPost.post.likes;
-            goToPage();
+            goToPage(POSTS_PAGE, { posts: posts });
           })
           .catch((error) => {
             console.error("Ошибка при добавлении лайка:", error);
@@ -114,7 +114,7 @@ function getLikePost() {
         dislikeLike(id, { token: getToken() })
           .then((updatedPost) => {
             posts[index].likes = updatedPost.post.likes;
-            goToPage();
+            goToPage(POSTS_PAGE, { posts: posts });
           })
           .catch((error) => {
             console.error("Ошибка при удалении лайка:", error);
