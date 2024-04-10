@@ -1,4 +1,8 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
+
+import { saveUserToLocalStorage } from "./helpers";
+import { sanitizeHtml } from "./sanitize";
+
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = "TanyaSuvorkina";
 const baseHost = "https://webdev-hw-api.vercel.app";
@@ -75,7 +79,7 @@ export const postPosts = ({ token, description, imageUrl }) => {
   return fetch(postsHost, {
     method: "POST",
     body: JSON.stringify({
-      description,
+      description: sanitizeHtml(description),
       imageUrl,
     }),
     headers: {
