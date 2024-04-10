@@ -1,6 +1,6 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, renderApp } from "../index.js";
+import { posts, goToPage } from "../index.js";
 import { getToken } from "../index.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale"
@@ -84,6 +84,7 @@ for (const deleteButton of deleteButtons) {
   }
 
 //likes counter
+
 function getLikePost() {
   const likesButtons = document.querySelectorAll('.like-button');
 
@@ -104,7 +105,7 @@ function getLikePost() {
         toggleLike(id, { token: getToken() })
           .then((updatedPost) => {
             posts[index].likes = updatedPost.post.likes;
-            renderApp();
+            goToPage();
           })
           .catch((error) => {
             console.error("Ошибка при добавлении лайка:", error);
@@ -113,7 +114,7 @@ function getLikePost() {
         dislikeLike(id, { token: getToken() })
           .then((updatedPost) => {
             posts[index].likes = updatedPost.post.likes;
-            renderApp();
+            goToPage();
           })
           .catch((error) => {
             console.error("Ошибка при удалении лайка:", error);
