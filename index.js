@@ -40,6 +40,7 @@ function getAPI() {
   return getPosts({ token: getToken() })
     .then((newPosts) => {
       if (newPosts && newPosts.length > 0) {
+        console.log('new posts', newPosts)
       page = POSTS_PAGE;
       posts = newPosts;
       renderApp();
@@ -65,6 +66,7 @@ export const goToPage = (newPage, data) => {
       LOADING_PAGE,
     ].includes(newPage)
   ) {
+    console.log(newPage);
     if (newPage === ADD_POSTS_PAGE) {
       // Если пользователь не авторизован, то отправляем его на авторизацию перед добавлением поста
       page = user ? ADD_POSTS_PAGE : AUTH_PAGE;
@@ -82,6 +84,7 @@ export const goToPage = (newPage, data) => {
         .then((newPosts) => {
           page = USER_POSTS_PAGE;
           posts = newPosts;
+          console.log(newPosts);
           renderApp();
         })
         .catch((error) => {
@@ -150,7 +153,7 @@ export const renderApp = () => {
 
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
-      appEl,
+      appEl, userView: false
     });
   }
 
@@ -158,7 +161,7 @@ export const renderApp = () => {
     // TODO: реализовать страницу фотографию пользвателя
     appEl.innerHTML = "Здесь будет страница фотографий пользователя";
     return renderPostsPageComponent({
-      appEl,
+      appEl, userView: true
     });
   }
 };

@@ -6,7 +6,7 @@ import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale"
 import { toggleLike,dislikeLike } from "../api.js";
 
-export function renderPostsPageComponent({ appEl }) {
+export function renderPostsPageComponent({ appEl, userView }) {
   // TODO: реализовать рендер постов из api
  // console.log("Актуальный список постов:", posts);
 
@@ -31,7 +31,7 @@ export function renderPostsPageComponent({ appEl }) {
                     <p class="post-likes-text">
                         Нравится: <strong>
                             ${post.likes.length === 0 ? 0 : post.likes.length === 1 ? post.likes[0].name
-                            : post.likes[(post.likes.length - 1)].name + ' и еще ' + (post.likes.length - 1)}
+                            : post.likes[post.likes.length - 1].name + ' и еще ' + (post.likes.length - 1)}
                         </strong>
                     </p>
                 </div>
@@ -87,14 +87,17 @@ for (const deleteButton of deleteButtons) {
 
 function getLikePost() {
   const likesButtons = document.querySelectorAll('.like-button');
-
+console.log(likesButtons);
   likesButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      event.stopPropagation();
+      console.log('click');
 
-      const id = button.dataset.id; // Получаем id поста 
-      const isLiked = button.dataset.liked; // Узнаем поставил ли пользователь лайк
-      const index = posts.findIndex((post) => post.id === id); // Находим индекс поста в массиве posts
+      const id = button.dataset.id; 
+    console.log('id', id);// 
+      const isLiked = button.dataset.liked;
+      console.log('isLiked', isLiked); // Узнаем поставил ли пользователь лайк
+      const index = posts.findIndex((post) => post.id === id); 
+      console.log('index', index);// Находим индекс поста в массиве posts
 
       if (index === -1) {
         console.error("Ошибка: пост не найден");
@@ -105,7 +108,8 @@ function getLikePost() {
         toggleLike(id, { token: getToken() })
           .then((updatedPost) => {
             //posts[index].likes = updatedPost.post.likes;
-            goToPage(POSTS_PAGE);
+            console.log(userView);
+            goToPage(userView ? USER_POSTS_PAGE : POSTS_PAGE,{ userId: id});
           })
           .catch((error) => {
             console.error("Ошибка при добавлении лайка:", error);
@@ -114,7 +118,8 @@ function getLikePost() {
         dislikeLike(id, { token: getToken() })
           .then((updatedPost) => {
             //posts[index].likes = updatedPost.post.likes;
-            goToPage(POSTS_PAGE);
+            console.log(userView);
+            goToPage(userView ? USER_POSTS_PAGE : POSTS_PAGE, { userId: id});
           })
           .catch((error) => {
             console.error("Ошибка при удалении лайка:", error);

@@ -131,7 +131,7 @@ export const toggleLike = (id, {token}) => {
     },
   })
   .then((response) => {
-    if (response.status === 200) {
+    if (response.ok) {
       return response.json();
     } 
     throw new Error("Чтобы поставить лайк - авторизуйтесь!");
@@ -146,7 +146,7 @@ export const dislikeLike = (id, {token}) => {
     },
   }) 
   .then((response) => {
-    if (response.status === 200) {
+    if (response.ok) {
       return response.json();
     }
     throw new Error("Чтобы поставить лайк - авторизуйтесь!");
