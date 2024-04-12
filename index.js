@@ -66,7 +66,6 @@ export const goToPage = (newPage, data) => {
       LOADING_PAGE,
     ].includes(newPage)
   ) {
-    console.log(newPage);
     if (newPage === ADD_POSTS_PAGE) {
       // Если пользователь не авторизован, то отправляем его на авторизацию перед добавлением поста
       page = user ? ADD_POSTS_PAGE : AUTH_PAGE;
@@ -84,19 +83,17 @@ export const goToPage = (newPage, data) => {
         .then((newPosts) => {
           page = USER_POSTS_PAGE;
           posts = newPosts;
-          console.log(newPosts);
+    
           renderApp();
         })
         .catch((error) => {
           console.error(error);
         });
-    } else {
+    } 
       page = newPage;
       renderApp();
       return;
     }
-  
-  }
   throw new Error("Страницы не существует");
 };
 
@@ -127,9 +124,8 @@ export const renderApp = () => {
     return renderAddPostPageComponent({
       appEl,
       onAddPostClick({ description, imageUrl }) {
-        // TODO: реализовать добавление поста в API
+       
         console.log("Добавляю пост...", { description, imageUrl });
-       // goToPage(POSTS_PAGE);
        postPosts ({ token: getToken(), description, imageUrl })
        .then(() => {     
          goToPage(POSTS_PAGE);
@@ -153,7 +149,7 @@ export const renderApp = () => {
 
   if (page === POSTS_PAGE) {
     return renderPostsPageComponent({
-      appEl, userView: false
+      appEl, userView: false,
     });
   }
 
@@ -161,7 +157,8 @@ export const renderApp = () => {
     // TODO: реализовать страницу фотографию пользвателя
     appEl.innerHTML = "Здесь будет страница фотографий пользователя";
     return renderPostsPageComponent({
-      appEl, userView: true
+      appEl, 
+      userView: true,
     });
   }
 };
@@ -173,9 +170,8 @@ export function deletePost( id ) {
     deletefetchPost({ token: getToken() },  id)
     .then((newPosts) => {
     posts = newPosts;
-    //return renderApp();
-      
-    })
-  };
-};
+    //return renderApp();  
+    });
+  }
+}
 
