@@ -196,3 +196,26 @@
   width: 100%;
   text-align: center;
 }
+.add-form__text {
+  resize: none;
+  width: 100%;    
+  box-sizing: border-box;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+}
+.post-block {
+  display: flex;
+justify-content: space-between;
+}
+.delete-button {
+  display: block;
+  float:right;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+  cursor: pointer;
+
+}

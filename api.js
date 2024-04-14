@@ -1,4 +1,8 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
+
+import { saveUserToLocalStorage } from "./helpers";
+import { sanitizeHtml } from "./sanitize";
+
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = "TanyaSuvorkina";
 const baseHost = "https://webdev-hw-api.vercel.app";
@@ -75,7 +79,7 @@ export const postPosts = ({ token, description, imageUrl }) => {
   return fetch(postsHost, {
     method: "POST",
     body: JSON.stringify({
-      description,
+      description: sanitizeHtml(description),
       imageUrl,
     }),
     headers: {
@@ -114,7 +118,11 @@ export function fetchPostsUser( id , { token }) {
 }
 
 
+
+
 //лайки
+
+
 export const toggleLike = (id, {token}) => {
   return fetch(`${postsHost}/${id}/like`, {
     method: "POST",
@@ -123,10 +131,10 @@ export const toggleLike = (id, {token}) => {
     },
   })
   .then((response) => {
-    if (response.status === 200) {
+    if (response.ok) {
       return response.json();
-    }
-    throw new Error("Лайкать посты могут только авторизованные пользователи");
+    } 
+    throw new Error("Чтобы поставить лайк - авторизуйтесь!");
   })
 }
 
@@ -138,9 +146,21 @@ export const dislikeLike = (id, {token}) => {
     },
   }) 
   .then((response) => {
-    if (response.status === 200) {
+    if (response.ok) {
       return response.json();
     }
-    throw new Error("Лайкать посты могут только авторизованные пользователи");
+    throw new Error("Чтобы поставить лайк - авторизуйтесь!");
   })
+} 
+//Delete post 
+export function deletefetchPost (id, {token}) {
+return fetch(`${postsHost}/${id}`, {
+  method: "Delete",
+  headers: {
+    Authorization: token,
+  },
+})
+.then((response) => {
+  return response.json();
+})
 }
